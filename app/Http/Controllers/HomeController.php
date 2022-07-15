@@ -16,6 +16,7 @@ class HomeController extends Controller
             '2' => 'トップス',
             '3' => 'ボトム',
         ];
+
         // 検索キーワード取得
         $keyword = mb_convert_kana($request->keyword, 's');
         $keywords = explode(" ", $keyword);
@@ -36,7 +37,7 @@ class HomeController extends Controller
         }
 
         // 商品一覧取得
-        $items = $query->orderby('id')->paginate(10);
+        $items = $query->where('status', '1')->orderby('id')->paginate(5);
 
         // 画面表示
         return view('home.home', [
@@ -45,5 +46,4 @@ class HomeController extends Controller
             'types' => $types,
         ]);
     }
-
 }
