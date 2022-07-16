@@ -12,7 +12,7 @@
     <div class="manu"> 
         <nav>
             <ul class="list-group list-group-horizontal justify-content-center">
-                <li class="list-group-item"><a class="text-decoration-none" href="">商品一覧</a></li>
+                <li class="list-group-item"><a class="text-decoration-none" href="{{ route('home') }}">商品一覧</a></li>
                 <li class="list-group-item"><a class="text-decoration-none" href="">商品登録</a></li>
                 <li class="list-group-item"><a class="text-decoration-none" href="">商品編集</a></li>
                 <li class="list-group-item"><a class="text-decoration-none" href="">ユーザー一覧</a></li>

@@ -30,6 +30,7 @@
                 <th>商品コード</th>
                 <th>種別</th>
                 <th>商品名</th>
+                <th>更新日</th>
                 <th></th>
             </tr>
             @foreach($items as $item)
@@ -37,13 +38,14 @@
                     <td>{{ $item->id }}</td>
                     <td>{{ $types[$item->type] }}</td>
                     <td>{{ $item->name }}</td>
+                    <td>{{ date("Y-m-d", strtotime($item->updated_at)) }}</td>
                     <td><button type="button" data-bs-toggle="modal" data-bs-target="#item-modal-{{ $item->id }}">詳細</button></td>
                     <!-- モーダル表示内容 -->
                     <div class="modal fade" id="item-modal-{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content w-75 m-auto">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">商品詳細</h5>
+                                    <h3 class="modal-title">商品詳細</h5>
                                 </div>
                                 <div class="modal-body">
                                     <div class="w-75 m-auto text-start">
@@ -54,7 +56,7 @@
                                         <p class="mb-0 mt-2">商品名</p>
                                         <input class="w-100" type="text" value="{{ $item->name }}">
                                         <p class="mb-0 mt-2">詳細</p>
-                                        <textarea class="w-100" name="" id="" cols="22" rows="3">{{ $item->detail }}</textarea>
+                                        <textarea class="w-100" name="detail" rows="4">{{ $item->detail }}</textarea>
                                     </div>
                                 </div>
                                 <div class="modal-footer justify-content-center">

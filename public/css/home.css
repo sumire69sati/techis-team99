@@ -1,0 +1,18 @@
+.page-item.active .page-link {
+    background-color: #E0FFCF;
+    border-color: #dee2e6;
+    color: black;
+}
+
+.page-link{
+    color: black;
+}
+
+h2{
+    margin: 20px;
+}
+
+.table{
+    width: 650px;
+    background-color: white;
+}
