@@ -15,7 +15,7 @@
         </form>
     </div>
 
-    @if(!empty($keyword) && $keyword !== " ")
+    @if($keyword && $keyword !== " ")
     <p>「{{ $keyword }}」の検索結果</p>
     @endif
 

@@ -12,25 +12,26 @@ class HomeController extends Controller
     public function index(Request $request){
         // 種別を配列に格納
         $types = [
-            '1' => 'アウター',
-            '2' => 'トップス',
-            '3' => 'ボトム',
+            1 => 'アウター',
+            2 => 'トップス',
+            3 => 'ボトム',
         ];
 
         // 検索キーワード取得
         $keyword = mb_convert_kana($request->keyword, 's');
         $keywords = explode(" ", $keyword);
         $query = Item::query();
-        if(!empty($keyword)){
+        if($keyword){
             foreach($keywords as $value) {
                 $query->where(function($query) use ($value, $types) {
                     $query->orwhere('id',  'LIKE', "%{$value}%")
                         ->orWhere('name','LIKE',"%{$value}%")
                         ->orWhere('detail','LIKE',"%{$value}%");
-                    $type_no = array_flip($types);
-                    if(isset($type_no[$value])){
-                        $type = $type_no[$value];
-                        $query->orWhere('type','LIKE',"%{$type}%");
+                    $search_types = preg_grep("/$value/", $types);
+                    if($search_types){
+                        foreach($search_types as $key => $type){
+                            $query->orWhere('type','LIKE',"%{$key}%");
+                        }
                     }
                 });
             }
