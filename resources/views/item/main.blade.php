@@ -27,7 +27,7 @@
             <ul class="navbar-nav mx-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link mx-4" href="#">HOME</a>
+                    <a class="nav-link ms-0 me-4" href="#">HOME</a>
                 </li>
 
                 <li class="nav-item">
@@ -39,12 +39,12 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link mx-4" href="#">更新・削除</a>
+                    <a class="nav-link ms-4 me-0" href="#">更新・削除</a>
                 </li>
             </ul>{{-- // リンク --}}
 
             {{-- 検索フォーム --}}
-            <div class="row">
+            {{-- <div class="row">
                 <form method="get" action="/search">
                     <div class="form-group d-flex">
                         <div class="col-xs-2">
@@ -53,10 +53,12 @@
                         <button type="submit" class="btn btn-brand me-8">検索</button>
                     </div>
                 </form>
-            </div>{{-- // 検索フォーム --}}
+            </div>   --}}
+            {{-- // 検索フォーム --}}
 
             {{-- TODO:↓↓ ログアウト機能をつける。ログイン名のボタン的なものを押下したら、ドロップダウンで「ログアウト」と表示される機能を付けたい。 --}}
-            <div class="ms-4">ログイン名</div>
+            <a class="btn btn-brand" href="#">ログイン名</a>
+
         </div>
     </div>
 </nav>{{-- // NAVBAR --}}
