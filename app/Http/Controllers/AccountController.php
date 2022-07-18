@@ -67,7 +67,7 @@ class AccountController extends Controller
             if($user->admine_id == 1){
                 return redirect()->route('home');
             }else{
-                return redirect()->route('home-user');
+                return redirect()->route('home');
             }
             
         }else{
