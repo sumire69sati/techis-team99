@@ -28,8 +28,16 @@ Route::middleware('auth')->group(function(){
 });
 Route::get('/logout',[App\Http\Controllers\AccountController::class,'logout'])->name('logout');
 
+//top ユーザー一覧画面
 Route::get('/user', [App\Http\Controllers\UserController::class, 'index']);
-Route::get('/user/show/{id}', [App\Http\Controllers\UserController::class, 'show']);
+
+//edit 管理者権限付与画面への遷移(編集)
+Route::get('/user/edit/{id}', [App\Http\Controllers\UserController::class, 'edit']);
+//4.編集ボタンを押した時のRoute
+Route::post('/user/update',[App\Http\Controllers\UserController::class,'update']);
+
+//削除ボタン
+Route::get('/userDelete/{id}',[App\Http\Controllers\UserController::class,'userDelete']);
 
 // createがきたら、新規登録画面を表示する。
 Route::get('item.create', [App\Http\Controllers\ItemController::class, 'create'])->name('create');
