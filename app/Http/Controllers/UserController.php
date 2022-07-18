@@ -40,7 +40,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         //管理者権限の変更
-        $user->admin_id = $request->admin_id;
+        $user->admine_id = $request->admine_id;
         $user->save();
 
         return redirect('/user');

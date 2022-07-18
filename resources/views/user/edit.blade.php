@@ -30,7 +30,7 @@
                 </div> -->
                 <div class="form-group">
                     管理者はチェックを入れてください<br>
-                    <input class="form-group" type="checkbox" name="admin_id" value="1" {{ old('admine_id',($user->admine_id)) == 1 ? "checked" : "" }}>管理者
+                    <input class="form-group" type="checkbox" name="admine_id" value="1" {{ old('admine_id',($user->admine_id)) == 1 ? "checked" : "" }}>管理者
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-secondary">更新</button>

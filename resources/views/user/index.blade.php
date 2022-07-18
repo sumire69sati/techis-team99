@@ -13,9 +13,7 @@
         <!-- ログアウトボタン -->
         <div style="width: 500px; margin: 100px auto;">
             <div style="text-align:right;">
-            <button type="button" class="btn btn-secondary btn-sm">ログアウト</button>
-            <!-- <a href="/logaut"> >>ログアウト </a> -->
-        </div>
+            <a href="/logout" class="btn btn-secondary btn-sm">ログアウト</a>
         </div>
 
             <!-- ユーザー一覧 -->
