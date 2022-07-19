@@ -32,6 +32,9 @@
                 <th>商品名</th>
                 <th>更新日</th>
                 <th></th>
+                @if(Auth::user()->admine_id === 1)
+                <th></th>
+                @endif
             </tr>
             @foreach($items as $item)
                 <tr>
@@ -40,12 +43,21 @@
                     <td>{{ $item->name }}</td>
                     <td>{{ date("Y-m-d", strtotime($item->updated_at)) }}</td>
                     <td><button type="button" data-bs-toggle="modal" data-bs-target="#item-modal-{{ $item->id }}">詳細</button></td>
+                    @if(Auth::user()->admine_id === 1)
+                        <td>
+                            <form action="{{ url('edit/' . $item->id ) }}" method="get">
+                                @csrf
+                                <button type="submit">編集</button>
+                            </form>
+                        </td>
+                    @endif
                     <!-- モーダル表示内容 -->
                     <div class="modal fade" id="item-modal-{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content w-75 m-auto">
-                                <div class="modal-header">
+                                <div class="modal-header d-flex justify-content-between">
                                     <h3 class="modal-title">商品詳細</h5>
+                                    <p class="m-1">登録者：{{ $item->user_name }}</p>
                                 </div>
                                 <div class="modal-body">
                                     <div class="w-75 m-auto text-start">
