@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Item extends Model
 {
     use HasFactory;
+    CONST TYPES = [
+        1 => "アウター",
+        2 => "トップス",
+        3 => "ボトム",
+    ];
 }
