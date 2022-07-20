@@ -45,7 +45,7 @@
                     <td><button  class="btn btn-sm btn-outline-success" type="button" data-bs-toggle="modal" data-bs-target="#item-modal-{{ $item->id }}">詳細</button></td>
                     @if(Auth::user()->admine_id === 1)
                         <td>
-                            <form action="{{ url('edit/' . $item->id ) }}" method="get">
+                            <form action="{{ route('item_edit', ['id' => $item['id']]) }}" method="get">
                                 @csrf
                                 <button class="btn btn-sm btn-outline-danger" type="submit">編集</button>
                             </form>

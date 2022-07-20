@@ -19,12 +19,7 @@ class HomeController extends Controller
         };
 
         // 種別を配列に格納
-        // $types = Item::TYPES;
-        $types = [
-            1 => 'アウター',
-            2 => 'トップス',
-            3 => 'ボトム',
-        ];
+        $types = Item::TYPES;
 
         // 検索キーワード取得
         $keyword = mb_convert_kana($request->keyword, 'sa');
@@ -57,7 +52,7 @@ class HomeController extends Controller
         $items = $query->where('status', '1')->orderby('id')
                         ->leftjoinSub($users, 'users', function ($join) {
                             $join->on('items.user_id', '=', 'users.user_id');
-                        })->paginate(8);
+                            })->paginate(8);
 
         // 画面表示
         return view('home.home', [

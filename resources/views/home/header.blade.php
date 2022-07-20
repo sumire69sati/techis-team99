@@ -20,8 +20,7 @@
             <div class="collapse navbar-collapse" id="Navbar">
                 <ul class="navbar-nav text-md-center nav-justified w-100">
                     <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">商品一覧</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('create') }}">商品登録</a></li>
-                    <li class="nav-item"><a class="nav-link" href="">商品編集</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('item_create') }}">商品登録</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/user') }}">ユーザー一覧</a></li>
                 </ul>
             </div>
