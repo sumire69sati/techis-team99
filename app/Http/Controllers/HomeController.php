@@ -27,20 +27,26 @@ class HomeController extends Controller
         ];
 
         // 検索キーワード取得
-        $keyword = mb_convert_kana($request->keyword, 's');
+        $keyword = mb_convert_kana($request->keyword, 'sa');
         $keywords = explode(" ", $keyword);
         $query = Item::query();
         if($keyword){
             foreach($keywords as $value) {
                 $query->where(function($query) use ($value, $types) {
-                    $query->orwhere('id',  'LIKE', "%{$value}%")
+                    $query->orwhere('id',  'LIKE', $value)
                         ->orWhere('name','LIKE',"%{$value}%")
                         ->orWhere('detail','LIKE',"%{$value}%");
+                    // 種別のあいまい検索
                     $search_types = preg_grep("#$value#", $types);
                     if($search_types){
                         foreach($search_types as $key => $type){
                             $query->orWhere('type','LIKE',"%{$key}%");
                         }
+                    }
+                    // 更新日のあいまい検索（月/日のように/区切りでの検索）
+                    if(strpos($value,'/') !== false){
+                        $date = str_replace('/', '-', $value);
+                        $query->orWhere('updated_at','LIKE',"%{$date}%");
                     }
                 });
             }
@@ -51,7 +57,7 @@ class HomeController extends Controller
         $items = $query->where('status', '1')->orderby('id')
                         ->leftjoinSub($users, 'users', function ($join) {
                             $join->on('items.user_id', '=', 'users.user_id');
-                        })->paginate(5);
+                        })->paginate(8);
 
         // 画面表示
         return view('home.home', [

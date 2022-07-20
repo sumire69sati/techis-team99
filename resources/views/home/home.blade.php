@@ -7,11 +7,11 @@
 <!-- 商品一覧・検索 -->
 <div class="main text-center">
     <h2>商品一覧</h2>
-    <div class="search-form mb-3">
-        <form action="{{ route('home') }}" method="get">
+    <div class="search-form mb-3 m-auto">
+        <form class="input-group" action="{{ route('home') }}" method="get">
             @csrf
-            <input type="text" name="keyword" placeholder="検索キーワード">
-            <button type="submit">検索</button>
+            <input class="form-control me-2" type="text" name="keyword" placeholder="検索キーワード">
+            <button class="btn btn-sm btn-secondary" type="submit">検索</button>
         </form>
     </div>
 
@@ -25,8 +25,8 @@
 
     <div class="items-table">
         @if(count($items)>0)
-        <table class="table table-bordered m-auto">
-            <tr class="table-info">
+        <table class="table table-sm table-bordered m-auto">
+            <tr class="table-secondary">
                 <th>商品コード</th>
                 <th>種別</th>
                 <th>商品名</th>
@@ -41,13 +41,13 @@
                     <td>{{ $item->id }}</td>
                     <td>{{ $types[$item->type] }}</td>
                     <td>{{ $item->name }}</td>
-                    <td>{{ date("Y-m-d", strtotime($item->updated_at)) }}</td>
-                    <td><button type="button" data-bs-toggle="modal" data-bs-target="#item-modal-{{ $item->id }}">詳細</button></td>
+                    <td>{{ date("Y/m/d", strtotime($item->updated_at)) }}</td>
+                    <td><button  class="btn btn-sm btn-outline-success" type="button" data-bs-toggle="modal" data-bs-target="#item-modal-{{ $item->id }}">詳細</button></td>
                     @if(Auth::user()->admine_id === 1)
                         <td>
                             <form action="{{ url('edit/' . $item->id ) }}" method="get">
                                 @csrf
-                                <button type="submit">編集</button>
+                                <button class="btn btn-sm btn-outline-danger" type="submit">編集</button>
                             </form>
                         </td>
                     @endif
@@ -72,7 +72,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer justify-content-center">
-                                    <button type="button" data-bs-dismiss="modal">閉じる</button>
+                                    <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-dismiss="modal">閉じる</button>
                                 </div>
                             </div>
                         </div>
