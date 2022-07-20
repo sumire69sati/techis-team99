@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/member-form',[App\Http\Controllers\AccountController::class,'create'])->name('member-form');
 Route::post('/member',[App\Http\Controllers\AccountController::class,'store'])->name('member');
@@ -39,24 +39,20 @@ Route::post('/user/update',[App\Http\Controllers\UserController::class,'update']
 //削除ボタン
 Route::get('/userDelete/{id}',[App\Http\Controllers\UserController::class,'userDelete']);
 
-// createがきたら、新規登録画面を表示する。
-Route::get('item.create', [App\Http\Controllers\ItemController::class, 'create'])->name('create');
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Route::get('/item_create', [App\Http\Controllers\ItemController::class, 'item_create'])->name('item_create');
+Route::post('/item_store', [App\Http\Controllers\ItemController::class, 'item_store'])->name('item_store');
 
-// storeがきたら「関数store」（入力された情報をDBへ挿入する）へ。
-Route::post('store', [App\Http\Controllers\ItemController::class, 'store'])->name('store');
+Route::get('/item_edit/{id}', [App\Http\Controllers\ItemController::class, 'item_edit'])->name('item_edit');
+Route::post('/item_update/{id}', [App\Http\Controllers\ItemController::class, 'item_update'])->name('item_update');
+Route::post('/item_delete/{id}', [App\Http\Controllers\ItemController::class, 'item_delete'])->name('item_delete');
 
-// editがきたら、更新・削除画面を表示する。
-Route::get('/item/edit', [App\Http\Controllers\ItemController::class, 'edit']);
+Route::get('/item_outer', [App\Http\Controllers\ItemController::class, 'item_outer'])->name('item_outer');
+Route::get('/item_tops', [App\Http\Controllers\ItemController::class, 'item_tops'])->name('item_tops');
+Route::get('/item_bottoms', [App\Http\Controllers\ItemController::class, 'item_bottoms'])->name('item_bottoms');
 
-// updateがきたら、「関数update」（itemのidを元にしてDBに新しい情報上書きする。バリデーション追加）へ。
-Route::post('/item/update/{id}', [App\Http\Controllers\ItemController::class, 'update']);
+Route::get('/item_search', [App\Http\Controllers\ItemController::class, 'item_search'])->name('item_search');
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// deleteがきたら、「関数deleate」へ。
-Route::post('/item/delete/{id}', [App\Http\Controllers\ItemController::class, 'delete']);
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
-// // searchがきたら「関数search」（itemのidを元に該当の情報を表示する）へ。
-// Route::get('item.search', [App\Http\Controllers\ItemController::class, 'search'])->name('search');
+Route::get('/home',[App\Http\Controllers\HomeController::class,'index'])->name('home');
 
