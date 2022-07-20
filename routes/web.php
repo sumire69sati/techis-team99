@@ -51,4 +51,5 @@ Route::get('/item_bottoms', [App\Http\Controllers\ItemController::class, 'item_b
 Route::get('/item_search', [App\Http\Controllers\ItemController::class, 'item_search'])->name('item_search');
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+Route::get('/home',[App\Http\Controllers\HomeController::class,'index'])->name('home');
 
