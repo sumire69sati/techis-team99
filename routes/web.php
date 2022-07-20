@@ -22,9 +22,7 @@ Route::post('/member',[App\Http\Controllers\AccountController::class,'store'])->
 Route::get('/login-form',[App\Http\Controllers\AccountController::class,'loginform'])->name('login-form');
 Route::post('/login',[App\Http\Controllers\AccountController::class,'login'])->name('login');
 Route::middleware('auth')->group(function(){
-
-    Route::get('/home',[App\Http\Controllers\AccountController::class,'home'])->name('home');
-    Route::get('/home-user',[App\Http\Controllers\AccountController::class,'homeuser'])->name('home-user');
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
 Route::get('/logout',[App\Http\Controllers\AccountController::class,'logout'])->name('logout');
 
@@ -53,8 +51,6 @@ Route::post('/item/update/{id}', [App\Http\Controllers\ItemController::class, 'u
 
 // deleteがきたら、「関数deleate」へ。
 Route::post('/item/delete/{id}', [App\Http\Controllers\ItemController::class, 'delete']);
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 // // searchがきたら「関数search」（itemのidを元に該当の情報を表示する）へ。

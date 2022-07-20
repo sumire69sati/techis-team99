@@ -5,7 +5,7 @@
             <p class="m-0">ユーザー名</p>
             <form action="" method="post">
                 @csrf
-                <button type="submit">ログアウト</button>
+                <button type="submit" href="{{ route('logout') }}">ログアウト</button>
             </form>
         </div>
     </div>
@@ -16,6 +16,7 @@
                 <li class="list-group-item"><a class="text-decoration-none" href="">商品登録</a></li>
                 <li class="list-group-item"><a class="text-decoration-none" href="">商品編集</a></li>
                 <li class="list-group-item"><a class="text-decoration-none" href="">ユーザー一覧</a></li>
+
             </ul>
         </nav>
     </div>
