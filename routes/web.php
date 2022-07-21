@@ -22,9 +22,7 @@ Route::post('/member',[App\Http\Controllers\AccountController::class,'store'])->
 Route::get('/login-form',[App\Http\Controllers\AccountController::class,'loginform'])->name('login-form');
 Route::post('/login',[App\Http\Controllers\AccountController::class,'login'])->name('login');
 Route::middleware('auth')->group(function(){
-
-    Route::get('/home',[App\Http\Controllers\AccountController::class,'home'])->name('home');
-    Route::get('/home-user',[App\Http\Controllers\AccountController::class,'homeuser'])->name('home-user');
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
 Route::get('/logout',[App\Http\Controllers\AccountController::class,'logout'])->name('logout');
 
@@ -54,5 +52,5 @@ Route::get('/item_bottoms', [App\Http\Controllers\ItemController::class, 'item_b
 Route::get('/item_search', [App\Http\Controllers\ItemController::class, 'item_search'])->name('item_search');
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Route::get('/home',[App\Http\Controllers\HomeController::class,'index'])->name('home');
+
 

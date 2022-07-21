@@ -15,7 +15,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+
+        \App\Models\User::truncate();
+
+        //\App\Models\User::factory(10)->create();
         \App\Models\User::insert([
             'name' => 'admin',
             'email' => 'admin@gmail.com',
@@ -33,7 +36,7 @@ class DatabaseSeeder extends Seeder
             'updated_at' =>date('Y-m-d H:i:s')
         ]);
 
-        $this->call(ItemsTableSeeder::class);
+        \App\Models\Item::factory(100)->create();
             
     }
 }

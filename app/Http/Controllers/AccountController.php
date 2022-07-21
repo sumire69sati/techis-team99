@@ -69,7 +69,6 @@ class AccountController extends Controller
             }else{
                 return redirect()->route('home');
             }
-            
         }else{
             /**
              * ログイン失敗
