@@ -26,6 +26,7 @@
                 <div class="mb-2">
                     <label for="exampleInputPassword1" class="form-label">パスワード(確認)</label>
                     <input type="password" name="password_confirmation" class="sign-up-input" id="exampleInputPassword1">
+
                     <span class="error_message text-danger">{{ $errors->first("password") }}</span>
                 </div>
                 <div class="mb-2">
