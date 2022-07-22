@@ -19,13 +19,34 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/member-form',[App\Http\Controllers\AccountController::class,'create'])->name('member-form');
 Route::post('/member',[App\Http\Controllers\AccountController::class,'store'])->name('member');
-Route::get('/login-form',[App\Http\Controllers\AccountController::class,'loginform'])->name('login-form');
+Route::get('/',[App\Http\Controllers\AccountController::class,'loginform'])->name('login-form');
 Route::post('/login',[App\Http\Controllers\AccountController::class,'login'])->name('login');
 
 Route::group(['middleware' => ['auth','can:admin-higher']],function(){
     //top ユーザー一覧画面
     Route::get('/user', [App\Http\Controllers\UserController::class, 'index']);
     Route::get('/item_create', [App\Http\Controllers\ItemController::class, 'item_create'])->name('item_create');
+    //edit 管理者権限付与画面への遷移(編集)
+    Route::get('/user/edit/{id}', [App\Http\Controllers\UserController::class, 'edit']);
+    //4.編集ボタンを押した時のRoute
+    Route::post('/user/update',[App\Http\Controllers\UserController::class,'update']);
+    
+    //削除ボタン
+    Route::get('/userDelete/{id}',[App\Http\Controllers\UserController::class,'userDelete']);
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    Route::post('/item_store', [App\Http\Controllers\ItemController::class, 'item_store'])->name('item_store');
+    
+    Route::get('/item_edit/{id}', [App\Http\Controllers\ItemController::class, 'item_edit'])->name('item_edit');
+    Route::post('/item_update/{id}', [App\Http\Controllers\ItemController::class, 'item_update'])->name('item_update');
+    Route::post('/item_delete/{id}', [App\Http\Controllers\ItemController::class, 'item_delete'])->name('item_delete');
+    
+    Route::get('/item_outer', [App\Http\Controllers\ItemController::class, 'item_outer'])->name('item_outer');
+    Route::get('/item_tops', [App\Http\Controllers\ItemController::class, 'item_tops'])->name('item_tops');
+    Route::get('/item_bottoms', [App\Http\Controllers\ItemController::class, 'item_bottoms'])->name('item_bottoms');
+    
+    Route::get('/item_search', [App\Http\Controllers\ItemController::class, 'item_search'])->name('item_search');
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
 });
 
@@ -33,27 +54,6 @@ Route::group(['middleware' => ['auth','can:user-higher']],function(){
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
 
-//edit 管理者権限付与画面への遷移(編集)
-Route::get('/user/edit/{id}', [App\Http\Controllers\UserController::class, 'edit']);
-//4.編集ボタンを押した時のRoute
-Route::post('/user/update',[App\Http\Controllers\UserController::class,'update']);
-
-//削除ボタン
-Route::get('/userDelete/{id}',[App\Http\Controllers\UserController::class,'userDelete']);
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-Route::post('/item_store', [App\Http\Controllers\ItemController::class, 'item_store'])->name('item_store');
-
-Route::get('/item_edit/{id}', [App\Http\Controllers\ItemController::class, 'item_edit'])->name('item_edit');
-Route::post('/item_update/{id}', [App\Http\Controllers\ItemController::class, 'item_update'])->name('item_update');
-Route::post('/item_delete/{id}', [App\Http\Controllers\ItemController::class, 'item_delete'])->name('item_delete');
-
-Route::get('/item_outer', [App\Http\Controllers\ItemController::class, 'item_outer'])->name('item_outer');
-Route::get('/item_tops', [App\Http\Controllers\ItemController::class, 'item_tops'])->name('item_tops');
-Route::get('/item_bottoms', [App\Http\Controllers\ItemController::class, 'item_bottoms'])->name('item_bottoms');
-
-Route::get('/item_search', [App\Http\Controllers\ItemController::class, 'item_search'])->name('item_search');
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/logout',[App\Http\Controllers\AccountController::class,'logout'])->name('logout');
 
