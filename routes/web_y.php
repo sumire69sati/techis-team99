@@ -28,8 +28,8 @@ Route::get('/user', [App\Http\Controllers\UserController::class, 'index']);
 
 //edit 管理者権限付与画面への遷移(編集)
 Route::get('/user/edit/{id}', [App\Http\Controllers\UserController::class, 'edit']);
-//4.編集ボタンを押した時のRoute
+//編集ボタンを押した時のRoute
 Route::post('/user/update',[App\Http\Controllers\UserController::class,'update']);
 
 //削除ボタン
-Route::get('/userDelete/{id}',[App\Http\Controllers\UserController::class,'userDelete']);
+Route::post('/userDelete',[App\Http\Controllers\UserController::class,'userDelete']);

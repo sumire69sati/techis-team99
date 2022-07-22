@@ -34,7 +34,7 @@ Route::get('/user/edit/{id}', [App\Http\Controllers\UserController::class, 'edit
 Route::post('/user/update',[App\Http\Controllers\UserController::class,'update']);
 
 //削除ボタン
-Route::get('/userDelete/{id}',[App\Http\Controllers\UserController::class,'userDelete']);
+Route::post('/userDelete',[App\Http\Controllers\UserController::class,'userDelete']);
 
 // createがきたら、新規登録画面を表示する。
 Route::get('item.create', [App\Http\Controllers\ItemController::class, 'create'])->name('create');
