@@ -31,7 +31,7 @@ class AuthServiceProvider extends ServiceProvider
             return($user->admine_id == 1);
         });
         Gate::define('user-higher',function($user){
-            return($user->admine_id == 1 or !$user->admine_id==1);
+            return($user->admine_id >= 0);
         });
         
 

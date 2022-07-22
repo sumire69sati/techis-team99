@@ -39,6 +39,7 @@ class AccountController extends Controller
             'name'=>$request->name,
             'email'=>$request->email,
             'password'=>Hash::make($request->password),
+            'admine_id'=> 0,
         ]);
         return redirect()->route('login-form');
     }
