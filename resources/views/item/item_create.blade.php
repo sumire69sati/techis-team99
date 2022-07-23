@@ -21,19 +21,26 @@
         <div class="card-body">
             <form method="POST" action="/item_store">
             @csrf
-            {{-- <input type="hidden" name='user_id' value="{{ $user['id'] }}" > --}}
+            <input type="hidden" name='user_id' value="{{ $user['id'] }}" >
             <div class="form-group">
                 <label for="name" class="px-1 mb-0 mt-2">商品名</label>
                 <input name="name" type="text" value="{{ old('name') }}" class="form-control" id="name" placeholder="商品名を入力">
             </div>
 
-            <div class="form-group">
-                <label for="type" class="px-1 mb-0 mt-2">カテゴリー</label>
-                <input name="type" type="text" value="{{ old('type') }}" class="form-control" id="type" placeholder="カテゴリーを入力">
-            </div>
+        {{-- カテゴリーをドロップダウンで選択 --}}
+        <div class="form-group mt-3">
+            <label for="id">{{ __('カテゴリー選択') }}</label>
+            <select class="form-control" id="type" name="type">
+                @foreach (Config::get('type.type_name') as $key => $val)
+                    <option value="{{ $key }}">{{ $val }}</option>
+                @endforeach
+            </select>
+        </div>
+        {{-- // カテゴリーをドロップダウンで選択 --}}
+
 
             <div class="form-group">
-                <label for="detail" class="px-1 mb-0 mt-2">詳細情報</label>
+                <label for="detail" class="px-1 mb-0 mt-3">詳細情報</label>
                 <textarea name="detail" value="{{ old('delail') }}" class="form-control" rows="10"></textarea>
             </div>
 

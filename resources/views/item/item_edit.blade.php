@@ -33,21 +33,30 @@
 
             <form method="POST" action="{{ route('item_update', ['id' => $item['id']]) }}">
             @csrf
-            {{-- <input type="hidden" name='user_id' value="{{ $user['id'] }}"> --}}
-
+            <input type="hidden" name='user_id' value="{{ $user['id'] }}">
             <div class="form-group">
                 <label for="name" class="px-1 mb-0 mt-2">商品名</label>
-                <input name="name" type="text" value="{{ $item['name'] }} {{ old('name') }}" class="form-control" id="name">
+                <input name="name" type="text" value="{{ $item['name'] }}{{ old('name') }}" class="form-control" id="name">
             </div>
 
-            <div class="form-group">
-                <label for="type" class="px-1 mb-0 mt-2">カテゴリー</label>
-                <input name="type" type="text" value="{{ $item['type'] }} {{ old('type') }}" class="form-control" id="type">
+            {{-- カテゴリーをドロップダウンで選択 --}}
+            <div class="form-group mt-3">
+                <label for="id">{{ __('カテゴリー選択') }}</label>
+                <select class="form-control" id="type" name="type">
+                    @foreach  ($array as $key => $val)
+                    @if($key == $item['type'])
+                        <option value="{{ $key }}" selected>{{ $val }}</option>
+                    @else
+                        <option value="{{ $key }}">{{ $val }}</option>
+                    @endif
+                @endforeach
+                </select>
             </div>
+            {{-- // カテゴリーをドロップダウンで選択 --}}
 
             <div class="form-group">
-                <label for="detail" class="px-1 mb-0 mt-2">詳細情報</label>
-                <textarea name="detail" class="form-control" value="{{ $item['delail'] }} {{ old('delail') }}" rows="10">{{ $item['detail'] }}</textarea>
+                <label for="detail" class="px-1 mb-0 mt-3">詳細情報</label>
+                <textarea name="detail" class="form-control" value="{{ $item['delail'] }}{{ old('delail') }}" rows="10">{{ $item['detail'] }}</textarea>
             </div>
 
             <button type="submit" class="btn btn-dark mx-auto d-block mt-5">更新</button>
