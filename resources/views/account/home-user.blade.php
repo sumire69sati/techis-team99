@@ -9,7 +9,7 @@
 
 <body>
 <!-- ログイン画面フォーム -->
-    <h3 class="sistem_name text-center">管理者用ページログイン成功</h3>
+    <h3 class="sistem_name text-center">一般ユーザーログイン成功</h3>
     <li><a class="text-center" href="{{ route('logout') }}">ログアウト</a></li>
 </body>
 </html>

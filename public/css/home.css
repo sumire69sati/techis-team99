@@ -16,3 +16,51 @@ h2{
     width: 650px;
     background-color: white;
 }
+
+.search-form{
+    width: 30%;
+}
+
+.modal-header{
+    background-color: mintcream;
+}
+
+.manu {
+    padding: 0 2px;
+    background-image: linear-gradient(to bottom, #f7f7f7 0%, #eee 100%);
+  }
+
+.manu a{
+    color: gray;
+    text-decoration: none;
+}
+
+.header a{
+    color: black;
+}
+
+.dropdown-menu{
+
+    text-align: center;
+    margin: auto;
+    border-color: lightgray;
+    background-color: whitesmoke;
+}
+
+.container-fluid{
+    width: 700px;
+}
+
+@media (min-width: 768px) {
+    .navbar-nav .nav-item {
+        -ms-flex: 1 0 auto;
+        flex: 1 0 auto;
+        align-items: left;
+    }
+    
+
+    .navbar-expand-md{
+        flex-wrap: wrap;
+    }
+    
+}

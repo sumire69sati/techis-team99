@@ -1,103 +1,110 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 use App\Models\Item;
+
 
 class ItemController extends Controller
 {
-    public function create()
+    public function item_create()
     {   
-        // TODO:「管理者」がログインしたら、新規登録画面が表示されるようにしたい。
-        return view('item.create');
+        $items = Item::where('status', 1)->orderBy('updated_at', 'DESC')->take(30)->get();
+        // dd($items);
+
+        return view('item.item_create', compact('items'));
     }
 
-    public function store(Request $request)
+    public function item_store(Request $request)
     {
-        // バリデーションを実施する。
+        $data = $request->all();
         $validated = $request->validate([
             'name' => 'required',
-            'type' => 'integer | between:1,100',
+            'type' => 'integer',
             'detail' => 'max:250',
         ]);
-
-        $message = [
-            'name.required' => '商品名を入力してください',
-            'type.between' => '種別は1～100の半角数字で入力してください',
-            'detail.max' => '詳細は250字以内で入力してください',
-        ];
-
-        $user = \Auth::user();
-        $data = $request->all();
-        $items = Item::insertGetId([
+        $item_id = Item::insertGetId([
             'user_id' => 1, 
             'name' => $data['name'],
             'status' => 1,
             'type' =>$data['type'],
             'detail' => $data['detail'],
         ]);
-        return redirect('item.create')->with('success', '情報の保存が完了しました');
+        return redirect()->route('item_create');
     }
 
-    public function edit()
+    public function item_edit($id)
     {   
-        // TODO:「管理者ID」でログインしたら、更新・削除画面が表示されるようにしたい。
-        return view('item.edit');
+        $user = 1;
+        $item = Item::where('status', 1)->where('id',$id)->first();
+        $items = Item::where('status', 1)->orderBy('updated_at', 'DESC')->take(30)->get();
+        return view('item.item_edit', compact('user', 'item', 'items'));
     }
 
-    public function update(Request $request, $id) 
+    public function item_update(Request $request, $id) 
     {
-        // バリデーションを実施する。
+        $inputs = $request->all();
+        // dd($inputs);
         $validated = $request->validate([
             'name' => 'required',
-            'type' => 'integer | between:1,100',
+            'type' => 'integer',
             'detail' => 'max:250',
         ]);
-
-        $message = [
-            'name.required' => '商品名を入力してください',
-            'type.between' => '種別は1～100の半角数字で入力してください',
-            'detail.max' => '詳細は250字以内で入力してください',
-        ];
-
-        $user = \Auth::user();
-        $inputs = $request->all();
-        // ItemIDを元に上書きする。※ログインユーザーが他人の登録した商品情報も上書き可能とする。
         Item::where('id', $id)->update([
-            'user_id' => $inputs['user_id'], 
-            'name' => $inputs['name'], 
-            'type' => $inputs['type'], 
+            'user_id' => 1, 
+            'name' => $inputs['name'],
+            'type' => $inputs['type'],
             'detail' => $inputs['detail']
         ]);
-        return redirect('item.edit')->with('success', '情報の保存が完了しました');
+        return redirect()->route('item_create');
     }
 
-    public function delete(Request $request, $id) 
+    public function item_delete(Request $request, $id) 
     {
-        $user = \Auth::user();
         $inputs = $request->all();
-        // 論理削除なのでstatusを１から２に変更したら画面上見えなくなる。
-        // 誰が削除したがわかるようにユーザーIDも上書きする。
-        Item::where('id', $id)->update(['user_id' => $inputs['user_id'],'status' => 2]);
-        // Item::where('id', $id)->delete();
-        return redirect('item.edit')->with('success', '情報の削除が完了しました');
+        Item::where('id', $id)->update(['status' => 2]);
+        return redirect()->route('item_create')->with('success', '削除が完了しました！');
     }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////
-    public function search(Request $request) 
+    public function item_outer()
+    {   
+        $user = 1;
+        $item = Item::where('status', 1)->where('user_id',1)->first();
+        $items = Item::where('type', 1)->where('status', 1)->orderBy('updated_at', 'DESC')->get();
+        return view('item.item_edit', compact('user', 'item', 'items'));
+    }
+
+    public function item_tops()
+    {   
+        $user = 1;
+        $item = Item::where('status', 1)->where('user_id',1)->first();
+        $items = Item::where('type', 2)->where('status', 1)->orderBy('updated_at', 'DESC')->get();
+        return view('item.item_edit', compact('user', 'item', 'items'));
+    }
+
+    public function item_bottoms()
+    {   
+        $user = 1;
+        $item = Item::where('status', 1)->where('user_id',1)->first();
+        $items = Item::where('type', 3)->where('status', 1)->orderBy('updated_at', 'DESC')->get();
+        return view('item.item_edit', compact('user', 'item', 'items'));
+    }
+
+    public function item_search(Request $request)
     {
-        // TODO:検索フォームにitemのidを入力して、一致するitemのidがあったら、該当の情報を下のフォームに表示したい。
-        // 検索フォームにitemのidが入力されて、「検索ボタン」が押下される。
-        // ①該当のitemのidが存在する場合は、下のフォームに該当の商品情報を表示する。
-        // ②該当のitemのdが存在しない場合は、「該当の商品がありません」とメッセージを表示する。 
-        // $item = Item::where('id',$id)->where('status', 1)->first();
-        return redirect('item.edit')->with('success', '情報の保存が完了しました');
+        $id = $request->id;
+        $user = 1;
+        $item = Item::where('status', 1)->where('id',$id)->first();
+        $items = Item::where('status', 1)->orderBy('updated_at', 'DESC')->take(15)->get();
+        // dd($item);
+        return view('item.item_edit', compact('user', 'item', 'items'));
     }
-///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // ログイン情報とつなげるまで、以下のように置き換えている。
+    // $user = \Auth::user();  は  $user = 1;
+    // where('user_id',$user['id'])  は  where('user_id',1)
+
 }
-
-
 
 

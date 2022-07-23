@@ -13,13 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/member-form',[App\Http\Controllers\AccountController::class,'create'])->name('member-form');
 Route::post('/member',[App\Http\Controllers\AccountController::class,'store'])->name('member');
-Route::get('/login-form',[App\Http\Controllers\AccountController::class,'loginform'])->name('login-form');
+Route::get('/',[App\Http\Controllers\AccountController::class,'loginform'])->name('login-form');
 Route::post('/login',[App\Http\Controllers\AccountController::class,'login'])->name('login');
 Route::get('/home',[App\Http\Controllers\AccountController::class,'home'])->name('home');
 Route::get('/home-user',[App\Http\Controllers\AccountController::class,'homeuser'])->name('home-user');
@@ -36,24 +36,41 @@ Route::post('/user/update',[App\Http\Controllers\UserController::class,'update']
 //削除ボタン
 Route::post('/userDelete',[App\Http\Controllers\UserController::class,'userDelete']);
 
-// createがきたら、新規登録画面を表示する。
-Route::get('item.create', [App\Http\Controllers\ItemController::class, 'create'])->name('create');
+Route::group(['middleware' => ['auth','can:admin-higher']],function(){
+    //top ユーザー一覧画面
+    Route::get('/user', [App\Http\Controllers\UserController::class, 'index']);
+    Route::get('/item_create', [App\Http\Controllers\ItemController::class, 'item_create'])->name('item_create');
+    //edit 管理者権限付与画面への遷移(編集)
+    Route::get('/user/edit/{id}', [App\Http\Controllers\UserController::class, 'edit']);
+    //4.編集ボタンを押した時のRoute
+    Route::post('/user/update',[App\Http\Controllers\UserController::class,'update']);
+    
+    //削除ボタン
+    Route::get('/userDelete/{id}',[App\Http\Controllers\UserController::class,'userDelete']);
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    Route::post('/item_store', [App\Http\Controllers\ItemController::class, 'item_store'])->name('item_store');
+    
+    Route::get('/item_edit/{id}', [App\Http\Controllers\ItemController::class, 'item_edit'])->name('item_edit');
+    Route::post('/item_update/{id}', [App\Http\Controllers\ItemController::class, 'item_update'])->name('item_update');
+    Route::post('/item_delete/{id}', [App\Http\Controllers\ItemController::class, 'item_delete'])->name('item_delete');
+    
+    Route::get('/item_outer', [App\Http\Controllers\ItemController::class, 'item_outer'])->name('item_outer');
+    Route::get('/item_tops', [App\Http\Controllers\ItemController::class, 'item_tops'])->name('item_tops');
+    Route::get('/item_bottoms', [App\Http\Controllers\ItemController::class, 'item_bottoms'])->name('item_bottoms');
+    
+    Route::get('/item_search', [App\Http\Controllers\ItemController::class, 'item_search'])->name('item_search');
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+});
 
-// storeがきたら「関数store」（入力された情報をDBへ挿入する）へ。
-Route::post('store', [App\Http\Controllers\ItemController::class, 'store'])->name('store');
-
-// editがきたら、更新・削除画面を表示する。
-Route::get('/item/edit', [App\Http\Controllers\ItemController::class, 'edit']);
-
-// updateがきたら、「関数update」（itemのidを元にしてDBに新しい情報上書きする。バリデーション追加）へ。
-Route::post('/item/update/{id}', [App\Http\Controllers\ItemController::class, 'update']);
-
-// deleteがきたら、「関数deleate」へ。
-Route::post('/item/delete/{id}', [App\Http\Controllers\ItemController::class, 'delete']);
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::group(['middleware' => ['auth','can:user-higher']],function(){
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});
 
 
-// // searchがきたら「関数search」（itemのidを元に該当の情報を表示する）へ。
-// Route::get('item.search', [App\Http\Controllers\ItemController::class, 'search'])->name('search');
+Route::get('/logout',[App\Http\Controllers\AccountController::class,'logout'])->name('logout');
+
+
+
 
