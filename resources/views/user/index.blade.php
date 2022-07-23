@@ -17,26 +17,31 @@
         </div>
 
             <!-- ユーザー一覧 -->
-        <div class="col-5 ml-3">
-            <table class="table table-bordered table-striped text-center">
-                <tr>
-                    <th>ID</th>
-                    <th>名前</th>
-                    <th>メールアドレス</th>
-                    <th>権限</th>
-                    <th>更新日</th>
-                </tr>
-                @foreach($users as $u)
+        <div class="row justify-content-center">
+            <!-- table-hoverでマウスにカーソルを合わせると色が変わるようにしたが反応無し -->
+            <table class="table table-bordered table-hover text-center">
+                <thead class="thead-light">
                     <tr>
-                        
-                        <td>{{$u->id}}</td>
-                        <td>{{$u->name}}</td>
-                        <td>{{$u->email}}</td>
-                        <td>@if($u->admine_id == 1) 管理者 @else - @endif</td>
-                        <td>{{$u->updated_at}}</td>
-                        <td><a href="/user/edit/{{$u->id}}"> >>編集 </a></td>
+                        <th>ID</th>
+                        <th>名前</th>
+                        <th>メールアドレス</th>
+                        <th>権限</th>
+                        <th>更新日</th>
                     </tr>
-                @endforeach
+                    @foreach($users as $u)
+                        <tr>
+                            
+                            <td>{{$u->id}}</td>
+                            <td>{{$u->name}}</td>
+                            <td>{{$u->email}}</td>
+                            <td>@if($u->admine_id == 1) 管理者 @else - @endif</td>
+                            <!-- <td>{{$u->updated_at}}</td> -->
+                            <td>{{ $u->updated_at->format('Y/m/d') }}</td>
+
+                            <td><a href="/user/edit/{{$u->id}}"> 編集 </a></td>
+                        </tr>
+                    @endforeach
+                </thead>
             </table>
 
 
