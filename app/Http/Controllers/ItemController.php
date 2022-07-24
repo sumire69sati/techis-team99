@@ -11,8 +11,8 @@ class ItemController extends Controller
     public function item_create()
     {   
         $user = \Auth::user();
-        $array = array('1'=>'アウター', '2'=>'トップス', '3'=>'ボトムス');
-        $items = Item::where('status', 1)->where('user_id', $user['id'])->orderBy('updated_at', 'DESC')->take(30)->get();
+        $array = array('1'=>'アウター', '2'=>'トップス', '3'=>'ボトム');
+        $items = Item::where('status', 1)->where('user_id', $user['id'])->orderBy('updated_at', 'DESC')->take(20)->get();
         return view('item.item_create', compact('user', 'array', 'items'));
     }
 
@@ -39,8 +39,8 @@ class ItemController extends Controller
     {   
         $user = \Auth::user();
         $item = Item::where('status', 1)->where('id',$id)->first();
-        $array = array('1'=>'アウター', '2'=>'トップス', '3'=>'ボトムス');
-        $items = Item::where('status', 1)->orderBy('updated_at', 'DESC')->take(30)->get();
+        $array = array('1'=>'アウター', '2'=>'トップス', '3'=>'ボトム');
+        $items = Item::where('status', 1)->orderBy('updated_at', 'DESC')->take(20)->get();
         return view('item.item_edit', compact('user', 'item', 'array', 'items',));
     }
 
@@ -72,7 +72,7 @@ class ItemController extends Controller
     public function item_outer()
     {   
         $user = \Auth::user();
-        $array = array('1'=>'アウター', '2'=>'トップス', '3'=>'ボトムス');
+        $array = array('1'=>'アウター', '2'=>'トップス', '3'=>'ボトム');
         $item = Item::where('status', 1)->where('user_id', $user['id'])->first();
         $items = Item::where('type', 1)->where('status', 1)->orderBy('updated_at', 'DESC')->get();
         return view('item.item_edit', compact('user', 'array', 'item', 'items'));
@@ -81,7 +81,7 @@ class ItemController extends Controller
     public function item_tops()
     {   
         $user = \Auth::user();
-        $array = array('1'=>'アウター', '2'=>'トップス', '3'=>'ボトムス');
+        $array = array('1'=>'アウター', '2'=>'トップス', '3'=>'ボトム');
         $item = Item::where('status', 1)->where('user_id', $user['id'])->first();
         $items = Item::where('type', 2)->where('status', 1)->orderBy('updated_at', 'DESC')->get();
         return view('item.item_edit', compact('user', 'array', 'item', 'items'));
@@ -90,7 +90,7 @@ class ItemController extends Controller
     public function item_bottoms()
     {   
         $user = \Auth::user();
-        $array = array('1'=>'アウター', '2'=>'トップス', '3'=>'ボトムス');
+        $array = array('1'=>'アウター', '2'=>'トップス', '3'=>'ボトム');
         $item = Item::where('status', 1)->where('user_id', $user['id'])->first();
         $items = Item::where('type', 3)->where('status', 1)->orderBy('updated_at', 'DESC')->get();
         return view('item.item_edit', compact('user', 'array', 'item', 'items'));
@@ -98,19 +98,23 @@ class ItemController extends Controller
 
     public function item_search(Request $request)
     {
-        $id = $request->id;
-        $validated = $request->validate([
-            'id' => 'required',
-        ]);
         $user = \Auth::user();
-        $array = array('1'=>'アウター', '2'=>'トップス', '3'=>'ボトムス');
-        $item = Item::where('status', 1)->where('id', $id)->first();
-        $items = Item::where('status', 1)->orderBy('updated_at', 'DESC')->take(15)->get();
-        return view('item.item_edit', compact('user', 'array', 'item', 'items'));
+        $id = Item::all()->where('id', $request->id)->first();
+        $validated = $request->validate(['id' => 'required']);
+        $array = array('1'=>'アウター', '2'=>'トップス', '3'=>'ボトム');
+        if(isset($id)){        
+            $item = Item::where('status', 1)->where('id', $id->id)->first();
+        };
+        $items = Item::where('status', 1)->orderBy('updated_at', 'DESC')->take(20)->get();
+        $count = Item::all()->where('id', $request->id)->count();
+        // dd($count);
+        if ($count != 0){
+            return view('item.item_edit', compact('user', 'array', 'item', 'items'));
+        } else {
+            return redirect()->route('item_create')->with('mismatch', '入力されたIDは存在しません。');
+        };
     }
-    // ログイン情報とつなげるまで、以下のように置き換えている。
-    // $user = \Auth::user();  は  $user = 1;
-    // where('user_id',$user['id'])  は  where('user_id',1)
-}
-
-
+} 
+        // ログイン情報とつなげるまで、以下のように置き換えている。
+        // $user = \Auth::user();  は  $user = 1;
+        // where('user_id',$user['id'])  は  where('user_id',1)
