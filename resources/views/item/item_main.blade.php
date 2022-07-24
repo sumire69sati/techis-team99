@@ -92,6 +92,14 @@
                         @endif
                         {{-- // エラーメッセージ --}}
 
+                        {{-- IDが存在しないメッセージ --}}
+                        @if(session('mismatch'))
+                            <div class="alert alert-info" role="alert">
+                                {{ session('mismatch') }}
+                            </div>
+                        @endif
+                        {{-- //IDが存在しないメッセージ --}}
+
                         {{-- 絞り込んだ結果の表示 --}}
                         @foreach($items as $item)
                             <a href="/item_edit/{{ $item['id'] }}" class='d-block text-secondary ms-3'>{{ $item['name'] }}</a>

@@ -10,7 +10,7 @@
                 <div class="input-group">
                     <form class="row g-1" action="/item_search" method="GET">
                         @csrf
-                        <div class="col-auto px-0"><input type="text" class="form-control form-control-sm" placeholder="Item ID" name="id"></div>
+                        <div class="col-auto px-0"><input type="text" class="form-control form-control-sm" placeholder="Item ID" name="id" value="{{ old('id') }}"></div>
                         <div class="col-auto ps-0"><button type="submit" class="btn btn-secondary btn-sm">検索</button></div>
                     </form>
                 </div>
@@ -27,16 +27,16 @@
                 <input name="name" type="text" value="{{ old('name') }}" class="form-control" id="name" placeholder="商品名を入力">
             </div>
 
-        {{-- カテゴリーをドロップダウンで選択 --}}
-        <div class="form-group mt-3">
-            <label for="id">{{ __('カテゴリー選択') }}</label>
-            <select class="form-control" id="type" name="type">
-                @foreach (Config::get('type.type_name') as $key => $val)
-                    <option value="{{ $key }}">{{ $val }}</option>
-                @endforeach
-            </select>
-        </div>
-        {{-- // カテゴリーをドロップダウンで選択 --}}
+            {{-- カテゴリーをドロップダウンで選択 --}}
+            <div class="form-group mt-3">
+                <label for="id">{{ __('カテゴリー選択') }}</label>
+                <select class="form-control" id="type" name="type">
+                    @foreach (Config::get('type.type_name') as $key => $val)
+                        <option value="{{ $key }}">{{ $val }}</option>
+                    @endforeach
+                </select>
+            </div>
+            {{-- // カテゴリーをドロップダウンで選択 --}}
 
 
             <div class="form-group">

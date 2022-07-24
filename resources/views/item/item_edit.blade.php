@@ -11,7 +11,7 @@
                 <div class="input-group">
                     <form class="row g-1" action="/item_search" method="GET">
                         @csrf
-                        <div class="col-auto px-0"><input type="text" class="form-control form-control-sm" placeholder="Item ID" name="id"></div>
+                        <div class="col-auto px-0"><input type="text" class="form-control form-control-sm" placeholder="Item ID" name="id" value="{{ $item['id'] }}{{ old('id') }}"></div>
                         <div class="col-auto ps-0"><button type="submit" class="btn btn-secondary btn-sm">検索</button></div>
                     </form>
                 </div>
