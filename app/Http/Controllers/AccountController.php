@@ -53,11 +53,10 @@ class AccountController extends Controller
 
         $this->validate($request,[
             'email'=>'required|email',
-            'password'=>'required|min:4'
+            'password'=>'required'
         ],
         ['email.required'=>'メールアドレスを入力して下さい',
         'password.required'=>'パスワードを入力して下さい',
-        'password.min'=>'パスワードは4文字以上で入力して下さい。',
         ]);
 
 
