@@ -13,4 +13,12 @@ class Item extends Model
         2 => "トップス",
         3 => "ボトム",
     ];
+
+    protected $fillable = [
+        'user_id',
+        'name',
+        'status',
+        'type',
+        'detail',
+    ];
 }

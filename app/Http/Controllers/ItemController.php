@@ -11,10 +11,9 @@ class ItemController extends Controller
     public function item_create()
     {   
         $user = \Auth::user();
+        $array = array('1'=>'アウター', '2'=>'トップス', '3'=>'ボトムス');
         $items = Item::where('status', 1)->where('user_id', $user['id'])->orderBy('updated_at', 'DESC')->take(30)->get();
-        // dd($items);
-
-        return view('item.item_create', compact('user', 'items'));
+        return view('item.item_create', compact('user', 'array', 'items'));
     }
 
     public function item_store(Request $request)
@@ -26,7 +25,7 @@ class ItemController extends Controller
             'type' => 'integer',
             'detail' => 'max:250',
         ]);
-        $item_id = Item::insertGetId([
+        $item_id = Item::create([
             'user_id' => $user['id'], 
             'name' => $data['name'],
             'status' => 1,
@@ -47,9 +46,8 @@ class ItemController extends Controller
 
     public function item_update(Request $request, $id) 
     {
-        $inputs = $request->all();
         $user = \Auth::user();
-        // dd($inputs);
+        $inputs = $request->all();
         $validated = $request->validate([
             'name' => 'required',
             'type' => 'integer',
@@ -74,42 +72,45 @@ class ItemController extends Controller
     public function item_outer()
     {   
         $user = \Auth::user();
+        $array = array('1'=>'アウター', '2'=>'トップス', '3'=>'ボトムス');
         $item = Item::where('status', 1)->where('user_id', $user['id'])->first();
         $items = Item::where('type', 1)->where('status', 1)->orderBy('updated_at', 'DESC')->get();
-        return view('item.item_edit', compact('user', 'item', 'items'));
+        return view('item.item_edit', compact('user', 'array', 'item', 'items'));
     }
 
     public function item_tops()
     {   
         $user = \Auth::user();
+        $array = array('1'=>'アウター', '2'=>'トップス', '3'=>'ボトムス');
         $item = Item::where('status', 1)->where('user_id', $user['id'])->first();
         $items = Item::where('type', 2)->where('status', 1)->orderBy('updated_at', 'DESC')->get();
-        return view('item.item_edit', compact('user', 'item', 'items'));
+        return view('item.item_edit', compact('user', 'array', 'item', 'items'));
     }
 
     public function item_bottoms()
     {   
         $user = \Auth::user();
+        $array = array('1'=>'アウター', '2'=>'トップス', '3'=>'ボトムス');
         $item = Item::where('status', 1)->where('user_id', $user['id'])->first();
         $items = Item::where('type', 3)->where('status', 1)->orderBy('updated_at', 'DESC')->get();
-        return view('item.item_edit', compact('user', 'item', 'items'));
+        return view('item.item_edit', compact('user', 'array', 'item', 'items'));
     }
 
     public function item_search(Request $request)
     {
         $id = $request->id;
+        $validated = $request->validate([
+            'id' => 'required',
+        ]);
         $user = \Auth::user();
         $array = array('1'=>'アウター', '2'=>'トップス', '3'=>'ボトムス');
-        $item = Item::where('status', 1)->where('id',$id)->first();
+        $item = Item::where('status', 1)->where('id', $id)->first();
         $items = Item::where('status', 1)->orderBy('updated_at', 'DESC')->take(15)->get();
-        // dd($item);
-        return view('item.item_edit', compact('user', 'array','item', 'items'));
+        return view('item.item_edit', compact('user', 'array', 'item', 'items'));
     }
-
     // ログイン情報とつなげるまで、以下のように置き換えている。
     // $user = \Auth::user();  は  $user = 1;
     // where('user_id',$user['id'])  は  where('user_id',1)
-
 }
 
 
