@@ -23,7 +23,7 @@ class AccountController extends Controller
         $this->validate($request,[
             'name'=>'required|max:255',
             'email'=>'required|email|unique:users,email',
-            'password'=>'required|min:4|confirmed',
+            'password'=>'required|min:8|confirmed',
             'kiyaku' => 'accepted',
             ],
             ['name.required'=>'名前を入力して下さい',
@@ -31,7 +31,7 @@ class AccountController extends Controller
             'email.required'=>'メールアドレスを入力して下さい',
             'email.unique'=>'このメールアドレスは既に登録されています',
             'password.required'=>'パスワードを入力して下さい',
-            'password.min'=>'パスワードは4文字以上で入力して下さい。',
+            'password.min'=>'パスワードは8文字以上で入力して下さい。',
             'password.confirmed'=>'確認用パスワードと一致していません。',
             'kiyaku.accepted' => '利用規約に同意して下さい',
         ]);
