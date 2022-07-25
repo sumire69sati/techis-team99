@@ -65,7 +65,8 @@ class ItemController extends Controller
     public function item_delete(Request $request, $id) 
     {
         $inputs = $request->all();
-        Item::where('id', $id)->update(['status' => 2]);
+        Item::where('id', $id)->delete();
+        // Item::where('id', $id)->update(['status' => 2]);
         return redirect()->route('item_create')->with('success', '削除が完了しました！');
     }
 
