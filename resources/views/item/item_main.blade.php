@@ -24,7 +24,7 @@
                         {{ Auth::user()->name }}
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                        <li class="decoration-none"><a  href="{{ route('logout') }}">ログアウト</a></li>
+                        <li class="decoration-none"><a href="{{ route('logout') }}">ログアウト</a></li>
                     </ul>
                 </div>
             </div>
