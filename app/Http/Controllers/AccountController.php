@@ -23,7 +23,7 @@ class AccountController extends Controller
         $this->validate($request,[
             'name'=>'required|max:255',
             'email'=>'required|email|unique:users,email',
-            'password'=>'required|min:8|confirmed',
+            'password'=>'required|min:8|confirmed|regex:/\A(?!.*?[^\x01-\x7E])(?=.*?[a-z])(?=.*?\d)(?=.*?[!-\/:-@[-`{-~])[!-~]+\z/iu',
             'kiyaku' => 'accepted',
             ],
             ['name.required'=>'名前を入力して下さい',
@@ -33,6 +33,7 @@ class AccountController extends Controller
             'password.required'=>'パスワードを入力して下さい',
             'password.min'=>'パスワードは8文字以上で入力して下さい。',
             'password.confirmed'=>'確認用パスワードと一致していません。',
+            'password.regex'=>' 半角英数字記号を1文字以上含めて下さい。',
             'kiyaku.accepted' => '利用規約に同意して下さい',
         ]);
         User::create([
