@@ -16,7 +16,6 @@ class ItemsTableSeeder extends Seeder
     public function run()
     {
         // 
-        \App\Models\Item::factory()->count(20)->create();
 
     }
 }

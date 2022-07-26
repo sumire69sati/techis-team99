@@ -21,6 +21,20 @@ Route::get('/member-form',[App\Http\Controllers\AccountController::class,'create
 Route::post('/member',[App\Http\Controllers\AccountController::class,'store'])->name('member');
 Route::get('/',[App\Http\Controllers\AccountController::class,'loginform'])->name('login-form');
 Route::post('/login',[App\Http\Controllers\AccountController::class,'login'])->name('login');
+Route::get('/home',[App\Http\Controllers\AccountController::class,'home'])->name('home');
+Route::get('/home-user',[App\Http\Controllers\AccountController::class,'homeuser'])->name('home-user');
+Route::get('/logout',[App\Http\Controllers\AccountController::class,'logout'])->name('logout');
+
+//top ユーザー一覧画面
+Route::get('/user', [App\Http\Controllers\UserController::class, 'index']);
+
+//edit 管理者権限付与画面への遷移(編集)
+Route::get('/user/edit/{id}', [App\Http\Controllers\UserController::class, 'edit']);
+//4.編集ボタンを押した時のRoute
+Route::post('/user/update',[App\Http\Controllers\UserController::class,'update']);
+
+//削除ボタン
+Route::post('/userDelete',[App\Http\Controllers\UserController::class,'userDelete']);
 
 Route::group(['middleware' => ['auth','can:admin-higher']],function(){
     //top ユーザー一覧画面

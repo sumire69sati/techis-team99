@@ -25,6 +25,10 @@ h2{
     background-color: mintcream;
 }
 
+
+/****
+メニューのスタイル
+*/
 .manu {
     padding: 0 2px;
     background-image: linear-gradient(to bottom, #f7f7f7 0%, #eee 100%);
