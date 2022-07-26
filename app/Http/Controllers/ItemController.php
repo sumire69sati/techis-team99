@@ -65,8 +65,8 @@ class ItemController extends Controller
     public function item_delete(Request $request, $id) 
     {
         $inputs = $request->all();
-        Item::where('id', $id)->delete();
-        // Item::where('id', $id)->update(['status' => 2]);
+        // Item::where('id', $id)->delete();
+        Item::where('id', $id)->update(['status' => 2]);
         return redirect()->route('item_create')->with('success', '削除が完了しました！');
     }
 
@@ -107,7 +107,7 @@ class ItemController extends Controller
             $item = Item::where('status', 1)->where('id', $id->id)->first();
         };
         $items = Item::where('status', 1)->orderBy('updated_at', 'DESC')->take(20)->get();
-        $count = Item::all()->where('id', $request->id)->count();
+        $count = Item::where('status', 1)->where('id', $request->id)->count();
         // dd($count);
         if ($count != 0){
             return view('item.item_edit', compact('user', 'array', 'item', 'items'));
