@@ -11,13 +11,13 @@
                 <div class="mb-2">
                     <label for="exampleInputEmail1" class="form-label">名前</label>
                     <span class="badge bg-danger">必須</span>
-                    <input type="text" name="name" class="sign-up-input" id="exampleInputEmail1" >
+                    <input type="text" name="name" class="sign-up-input" id="exampleInputEmail1" value="{{ old('name') }}">
                     <span class="error_message text-danger">{{ $errors->first("name") }}</span>
                 </div>
                 <div class="mb-2">
                     <label for="exampleInputEmail1" class="form-label">メールアドレス</label>
                     <span class="badge bg-danger">必須</span>
-                    <input type="email" name="email" class="sign-up-input" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="sample@gmail.com">
+                    <input type="email" name="email" class="sign-up-input" id="exampleInputEmail1" value="{{ old('email') }}" aria-describedby="emailHelp" placeholder="sample@gmail.com">
                     <span class="error_message text-danger">{{ $errors->first("email") }}</span>
                 </div>
                 <div class="mb-2">
