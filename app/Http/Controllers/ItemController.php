@@ -101,7 +101,8 @@ class ItemController extends Controller
     {
         $user = \Auth::user();
         $id = Item::all()->where('id', $request->id)->first();
-        $validated = $request->validate(['id' => 'required']);
+        // 数字以外でエラー表示の追加
+        $validated = $request->validate(['id' => 'required|integer']);
         $array = array('1'=>'アウター', '2'=>'トップス', '3'=>'ボトム');
         if(isset($id)){        
             $item = Item::where('status', 1)->where('id', $id->id)->first();
