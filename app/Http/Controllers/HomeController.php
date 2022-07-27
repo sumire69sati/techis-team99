@@ -24,7 +24,7 @@ class HomeController extends Controller
         // 検索キーワード取得
         $keyword = mb_convert_kana($request->keyword, 'sa'); 
         $keywords = explode(" ", $keyword);
-        if(in_array("\\", $keywords)){
+        if(!empty(preg_grep("#\\\#", $keywords))){
             $keywords = str_replace( "\\" ,  "\\\\" , $keywords);
         }
         $query = Item::query();
