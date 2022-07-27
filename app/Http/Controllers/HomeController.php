@@ -22,8 +22,11 @@ class HomeController extends Controller
         $types = Item::TYPES;
 
         // 検索キーワード取得
-        $keyword = mb_convert_kana($request->keyword, 'sa');
+        $keyword = mb_convert_kana($request->keyword, 'sa'); 
         $keywords = explode(" ", $keyword);
+        if(!empty(preg_grep("#\\\#", $keywords))){
+            $keywords = str_replace( "\\" ,  "\\\\" , $keywords);
+        }
         $query = Item::query();
         if($keyword){
             foreach($keywords as $value) {
