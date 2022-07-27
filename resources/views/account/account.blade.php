@@ -7,7 +7,7 @@
             <form class="sign-up" action="{{url('member')}}" method="POST">
                 {{ csrf_field() }}
 
-                <h1 class="sign-up-title">会員登録フォーム</h1>
+                <h1 class="sign-up-title">商品管理システム</h1>
                 <div class="mb-2">
                     <label for="exampleInputEmail1" class="form-label">名前</label>
                     <span class="badge bg-danger">必須</span>
