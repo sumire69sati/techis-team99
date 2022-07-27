@@ -31,9 +31,9 @@ class AccountController extends Controller
             'email.required'=>'メールアドレスを入力して下さい',
             'email.unique'=>'このメールアドレスは既に登録されています',
             'password.required'=>'パスワードを入力して下さい',
-            'password.min'=>'パスワードは8文字以上で入力して下さい。',
-            'password.confirmed'=>'確認用パスワードと一致していません。',
-            'password.regex'=>' 半角英数字記号を1文字以上含めて下さい。',
+            'password.min'=>'パスワードは8文字以上で入力して下さい',
+            'password.confirmed'=>'確認用パスワードと一致していません',
+            'password.regex'=>' 半角英数字記号を1文字以上含めて下さい',
             'kiyaku.accepted' => '利用規約に同意して下さい',
         ]);
         User::create([
