@@ -7,7 +7,7 @@
             <!-- ユーザー一覧 -->
         <div class="row justify-content-center">
             <!-- table-hoverでマウスにカーソルを合わせると色が変わるようにしたが反応無し -->
-            <table class="table table-bordered table-hover text-center">
+            <table class="table table-bordered text-center">
                 <thead class="thead-light">
                     <tr>
                         <th>ID</th>
