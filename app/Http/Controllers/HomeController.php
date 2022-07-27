@@ -32,7 +32,8 @@ class HomeController extends Controller
                         ->orWhere('name','LIKE',"%{$value}%")
                         ->orWhere('detail','LIKE',"%{$value}%");
                     // 種別のあいまい検索
-                    $search_types = preg_grep("#$value#", $types);
+                    $escape_value = preg_quote($value, '/');
+                    $search_types = preg_grep("#$escape_value#", $types);
                     if($search_types){
                         foreach($search_types as $key => $type){
                             $query->orWhere('type','LIKE',"%{$key}%");

@@ -57,7 +57,11 @@
                             <div class="modal-content w-75 m-auto">
                                 <div class="modal-header d-flex justify-content-between">
                                     <h3 class="modal-title">商品詳細</h5>
-                                    <p class="m-1">登録者：{{ $item->user_name }}</p>
+                                    @if($item->user_name)
+                                        <p class="m-1">登録者：{{ $item->user_name }}</p>
+                                    @else
+                                        <p class="m-1">登録者：削除されたユーザー</p>
+                                    @endif
                                 </div>
                                 <div class="modal-body">
                                     <div class="w-75 m-auto text-start">
@@ -68,7 +72,7 @@
                                         <p class="mb-0 mt-2">商品名</p>
                                         <input class="w-100" type="text" value="{{ $item->name }}">
                                         <p class="mb-0 mt-2">詳細</p>
-                                        <textarea class="w-100" name="detail" rows="4">{{ $item->detail }}</textarea>
+                                        <textarea class="w-100" name="detail" rows="5">{{ $item->detail }}</textarea>
                                     </div>
                                 </div>
                                 <div class="modal-footer justify-content-center">
