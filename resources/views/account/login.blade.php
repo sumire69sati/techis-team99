@@ -12,7 +12,6 @@
     <div class="login mx-auto" style="max-width:400px">
         <form class="sign-up" action="{{url('login')}}" method="POST">
             {{ csrf_field() }}
-
             <h1 class="sign-up-title">商品管理システム</h1>
             <div class="mb-2">
                 <label for="exampleInputEmail1" class="form-label">メールアドレス</label>
