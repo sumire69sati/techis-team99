@@ -23,7 +23,7 @@ class AccountController extends Controller
         $this->validate($request,[
             'name'=>'required|max:255',
             'email'=>'required|email|unique:users,email',
-            'password'=>'required|min:8|confirmed|regex:/\A(?!.*?[^\x01-\x7E])(?=.*?[a-z])(?=.*?\d)(?=.*?[!-\/:-@[-`{-~])[!-~]+\z/iu',
+            'password'=>'required|min:8|confirmed|regex:/\A(?=.*?[a-z])(?=.*?\d)(?=.*?[!-\/:-@[-`{-~])[!-~]+\z/iu',
             'kiyaku' => 'accepted',
             ],
             ['name.required'=>'名前を入力して下さい',
@@ -75,6 +75,12 @@ class AccountController extends Controller
              * ログイン失敗
              * エラー表示作る
              */
+            $request->session()->put([
+                '_old_input' => [
+                    'email' => $request->email,
+                ]
+            ]);
+            
             session()->flash('loginerror',true);
             return redirect()->route('login-form');
         }
