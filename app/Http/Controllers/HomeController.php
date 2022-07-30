@@ -22,8 +22,11 @@ class HomeController extends Controller
         $types = Item::TYPES;
 
         // 検索キーワード取得
-        $keyword = mb_convert_kana($request->keyword, 'sa');
+        $keyword = mb_convert_kana($request->keyword, 'sa'); 
         $keywords = explode(" ", $keyword);
+        if(!empty(preg_grep("#\\\#", $keywords))){
+            $keywords = str_replace( "\\" ,  "\\\\" , $keywords);
+        }
         $query = Item::query();
         if($keyword){
             foreach($keywords as $value) {
@@ -32,7 +35,8 @@ class HomeController extends Controller
                         ->orWhere('name','LIKE',"%{$value}%")
                         ->orWhere('detail','LIKE',"%{$value}%");
                     // 種別のあいまい検索
-                    $search_types = preg_grep("#$value#", $types);
+                    $escape_value = preg_quote($value, '/');
+                    $search_types = preg_grep("#$escape_value#", $types);
                     if($search_types){
                         foreach($search_types as $key => $type){
                             $query->orWhere('type','LIKE',"%{$key}%");

@@ -1,42 +1,35 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
-    <head>
-        <!-- 文字コード・画面表示の設定 -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+@extends('home.app')
 
-        <!-- Bootstrap CSSの読み込み -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
-    </head>
-    <body>
-        <!-- ログアウトボタン -->
-        <div style="width: 500px; margin: 100px auto;">
-            <div style="text-align:right;">
-            <a href="/logout" class="btn btn-secondary btn-sm">ログアウト</a>
-        </div>
+@include('home.header')
 
             <!-- ユーザー一覧 -->
-        <div class="col-5 ml-3">
-            <table class="table table-bordered table-striped text-center">
-                <tr>
-                    <th>ID</th>
-                    <th>名前</th>
-                    <th>メールアドレス</th>
-                    <th>権限</th>
-                    <th>更新日</th>
-                </tr>
-                @foreach($users as $u)
+        <div class="row justify-content-center">
+            <!-- table-hoverでマウスにカーソルを合わせると色が変わるようにしたが反応無し -->
+            <table class="table table-bordered text-center">
+                <thead class="thead-light">
                     <tr>
-                        
-                        <td>{{$u->id}}</td>
-                        <td>{{$u->name}}</td>
-                        <td>{{$u->email}}</td>
-                        <td>@if($u->admine_id == 1) 管理者 @else - @endif</td>
-                        <td>{{$u->updated_at}}</td>
-                        <td><a href="/user/edit/{{$u->id}}"> >>編集 </a></td>
+                        <th>ID</th>
+                        <th>名前</th>
+                        <th>メールアドレス</th>
+                        <th>権限</th>
+                        <th>更新日</th>
                     </tr>
-                @endforeach
+                    @foreach($users as $u)
+                        <tr>
+                            
+                            <td>{{$u->id}}</td>
+                            <td>{{$u->name}}</td>
+                            <td>{{$u->email}}</td>
+                            <td>@if($u->admine_id == 1) 管理者 @else - @endif</td>
+                            <!-- <td>{{$u->updated_at}}</td> -->
+                            <td>{{ $u->updated_at->format('Y/m/d') }}</td>
+
+                            <td><a href="/user/edit/{{$u->id}}"> 編集 </a></td>
+                        </tr>
+                    @endforeach
+                </thead>
             </table>
 
 

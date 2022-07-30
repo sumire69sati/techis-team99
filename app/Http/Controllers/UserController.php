@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Migrations\Migration;
 //
 use App\Models\User;
+use Illuminate\Auth\Middleware\RequirePassword;
 
 class UserController extends Controller
 {
@@ -26,6 +27,8 @@ class UserController extends Controller
 
         // 一覧から指定されたIDと同じIDを取得する、findはidを持ったものを抽出する(idは重ならない)
         $user = User::find($request->id);
+
+        //下記dd($user);は登録された内容が確認できる（phpMyadminのDB上に書かれているもの）（PHPのvar_dump()と同じ感じ）
         // dd($user);
 
         //画面に渡す
@@ -34,6 +37,17 @@ class UserController extends Controller
 
     //編集画面
     public function update(Request $request){
+
+        $this->validate($request,[
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|unique:users,email,'.$request->id,
+        ],
+        [
+            'name.required' => '名前を入力してください',
+            'name.max' => '文字数がオーバーしています',
+            'email.required' => 'メールアドレスを入力してください',
+            'email.unique' => 'メールアドレスは既に登録されています',
+        ]);
 
         //ユーザー情報を取得して編集・保存する(Model)
         $user = User::find($request->id);
@@ -44,6 +58,18 @@ class UserController extends Controller
         $user->save();
 
         return redirect('/user');
+    }
+
+    //削除ボタン
+    public function userDelete(Request $request){
+
+        //ユーザー情報を取得して削除する
+        $user = User::find($request->id);
+        //削除する
+        $user->delete();
+
+        return redirect('/user');
+
     }
 
 
