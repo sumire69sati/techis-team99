@@ -6,10 +6,10 @@
 店長などの責任者は管理者権限を付与され、商品一覧画面の閲覧に加え、商品の登録削除・ユーザーの管理と一般ユーザーへの管理者権限付与が出来ます。
 
 ## URL
-https://test-team99.herokuapp.com
+https://techis-team99.herokuapp.com/
 
 ## テスト用アカウント
- メールアドレス:saitou@gmail.com  
+ メールアドレス:kihara@gmail.com
  パスワード:mk5<ha2re
                 
 ## 利用方法
