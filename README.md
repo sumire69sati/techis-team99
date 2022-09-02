@@ -9,7 +9,7 @@
 https://techis-team99.herokuapp.com/
 
 ## テスト用アカウント
- メールアドレス:kihara@gmail.com
+ メールアドレス:kihara@gmail.com  
  パスワード:mk5<ha2re
                 
 ## 利用方法
